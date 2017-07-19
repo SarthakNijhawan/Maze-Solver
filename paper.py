@@ -30,19 +30,50 @@ def maze_extraction(img):
 	# The fourth cell is the centroid matrix
 	centroids = output[3]
 
-	# Find the regions with the maximum perimeter as maze walls
+	# Find all the closed contours of all the labels
+	arc_length = []
+	for i in range(num_labels):
+		region = cv2.threshold(labels, i+1, 255, cv2.THRESH_BINARY)
+		image, contours, hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+		arc_length += [cv2.arc_length(image, contours)]
+
+	# Find the the 2 most valued arguments in the list
+
+
+	# Retrieve each region
+
+
+	# Overlay both the maze walls to generate the final image 
 
 
 	return [adapthresh, median, invert, labels] , ["Adaptively Thesholded", "Median Filtered", "Inverted", "Labels"]
 
 def solutionpath_extraction(img):
+
+	# Use a convex operation to extract all the points which lies under the region covered by the two walls as a whole
+
+
+	# Find the contour of the region and Draw it and threhold the rest to 0
+
+
+	# Final image with a black background and white solution path
+
 	raise NotImplementedError
 
 def morphological_thinning(img):
-	"Performs morphological operations to reduce the solution space and build a succinct skeleton further processing"
+	"Performs morphological operations to reduce the solution space to a one pixel simply connected path without any loops."
+	
+	# Apply Zhang Seun thinning Algorithm
+
+
+	raise NotImplementedError
+
+def pruning_and_overlay(img):
+	
 	raise NotImplementedError
 
 def algo(img):
+
 	raise NotImplementedError
 
 if __name__=="__main__":
